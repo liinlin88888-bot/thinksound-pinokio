@@ -1,7 +1,13 @@
 {
   "title": "ThinkSound - Update",
   "run": [
-    { "method": "shell.run", "params": { "message": "git -C app pull" } },
-    { "method": "shell.run", "params": { "path": "app", "conda": "conda", "message": [ "pip install -U thinksound" ] } }
+    {
+      "method": "shell.run",
+      "params": {
+        "path": "app",
+        "conda": "conda",
+        "message": "pip install --upgrade thinksound soxr 'transformers>=4.42.0' librosa soundfile"
+      }
+    }
   ]
 }
