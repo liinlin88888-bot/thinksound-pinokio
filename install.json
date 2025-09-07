@@ -1,0 +1,21 @@
+{
+  "title": "ThinkSound - Install",
+  "description": "Install ThinkSound and all dependencies (Conda + Torch + FFmpeg + Weights).",
+  "run": [
+    { "method": "shell.run", "params": { "message": "git clone https://github.com/FunAudioLLM/ThinkSound app" } },
+    { "method": "shell.run", "params": { "path": "app", "conda": { "path": "conda", "python": "python=3.10" }, "message": "python -m pip install --upgrade pip" } },
+
+    { "when": "{{platform === 'win32' && gpu === 'nvidia'}}", "method": "shell.run", "params": { "path": "app", "conda": "conda", "message": "pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121" } },
+    { "when": "{{platform === 'win32' && gpu === 'amd'}}", "method": "shell.run", "params": { "path": "app", "conda": "conda", "message": "pip install torch-directml" } },
+    { "when": "{{platform === 'win32' && (gpu !== 'nvidia' && gpu !== 'amd')}}", "method": "shell.run", "params": { "path": "app", "conda": "conda", "message": "pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu" } },
+
+    { "when": "{{platform === 'linux' && gpu === 'nvidia'}}", "method": "shell.run", "params": { "path": "app", "conda": "conda", "message": "pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121" } },
+    { "when": "{{platform === 'linux' && gpu === 'amd'}}", "method": "shell.run", "params": { "path": "app", "conda": "conda", "message": "pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm5.7" } },
+    { "when": "{{platform === 'linux' && (gpu !== 'nvidia' && gpu !== 'amd')}}", "method": "shell.run", "params": { "path": "app", "conda": "conda", "message": "pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu" } },
+
+    { "when": "{{platform === 'darwin'}}", "method": "shell.run", "params": { "path": "app", "conda": "conda", "message": "pip install torch torchvision torchaudio" } },
+
+    { "method": "shell.run", "params": { "path": "app", "conda": "conda", "message": [ "pip install thinksound", "conda install -y -c conda-forge \"ffmpeg<7\" git-lfs" ] } },
+    { "method": "shell.run", "params": { "path": "app", "message": [ "git lfs install", "git clone https://huggingface.co/liuhuadai/ThinkSound ckpts" ] } }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "title": "ThinkSound - Reset",
+  "run": [
+    { "when": "{{platform === 'win32'}}", "method": "shell.run", "params": { "message": [ "rmdir /S /Q app" ] } },
+    { "when": "{{platform !== 'win32'}}", "method": "shell.run", "params": { "message": [ "rm -rf app" ] } }
+  ]
+}

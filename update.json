@@ -1,0 +1,7 @@
+{
+  "title": "ThinkSound - Update",
+  "run": [
+    { "method": "shell.run", "params": { "message": "git -C app pull" } },
+    { "method": "shell.run", "params": { "path": "app", "conda": "conda", "message": [ "pip install -U thinksound" ] } }
+  ]
+}
